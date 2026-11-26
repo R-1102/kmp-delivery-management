@@ -1,39 +1,82 @@
-This is a Kotlin Multiplatform project targeting Android, iOS.
+# KMP Delivery Management
 
-* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./composeApp/src/jvmMain/kotlin)
-    folder is the appropriate location.
+A Kotlin Multiplatform (KMP) proof of concept for a delivery and order management system, developed as part of a collaborative software development project.
 
-* [/iosApp](./iosApp/iosApp) contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform,
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+The project explores migrating an existing native Android application to a multiplatform architecture, enabling shared business logic, networking, and data management across Android and iOS.
 
-* [/shared](./shared/src) is for the code that will be shared between all targets in the project.
-  The most important subfolder is [commonMain](./shared/src/commonMain/kotlin). If preferred, you
-  can add code to the platform-specific folders here too.
+## Features
 
-### Build and Run Android Application
+- Authentication and session management.
+- Order history and delivery logs.
+- Search, filtering, sorting, and pagination.
+- REST API integration using Ktor.
+- Real-time updates through WebSocket communication.
+- WebSocket reconnection handling.
+- Location services and distance calculation.
+- Network connectivity monitoring.
+- Platform-specific secure storage.
+- PDF generation and export on Android.
 
-To build and run the development version of the Android app, use the run configuration from the run widget
-in your IDE’s toolbar or build it directly from the terminal:
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:assembleDebug
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:assembleDebug
-  ```
+## Technologies
 
-### Build and Run iOS Application
+- Kotlin Multiplatform (KMP)
+- Jetpack Compose
+- Clean Architecture
+- Ktor Client
+- Koin Dependency Injection
+- Kotlin Coroutines
+- StateFlow
+- Kotlinx Serialization
+- WebSockets
+- Google Maps
+- Gradle Kotlin DSL
 
-To build and run the development version of the iOS app, use the run configuration from the run widget
-in your IDE’s toolbar or open the [/iosApp](./iosApp) directory in Xcode and run it from there.
+## Architecture
 
----
+The project follows Clean Architecture principles, separating business logic, data management, and presentation responsibilities while maximizing code sharing across platforms.
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+| Layer | Responsibility |
+|---|---|
+| Presentation | UI state, ViewModels, and platform-specific interfaces |
+| Domain | Business logic, use cases, models, and repository interfaces |
+| Data | API integration, data sources, repositories, and serialization |
+| Platform | Native implementations of location, storage, connectivity, and PDF services |
+
+## Project Structure
+
+```text
+lmdkmp/
+├── composeApp/
+│   └── src/
+│       └── androidMain/
+├── shared/
+│   └── src/
+│       ├── commonMain/
+│       ├── androidMain/
+│       ├── iosMain/
+│       └── commonTest/
+└── iosApp/
+```
+
+## Multiplatform Approach
+
+- **commonMain:** Shared business logic, domain models, repositories, networking, and state management.
+- **androidMain:** Android-specific implementations and native service integrations.
+- **iosMain:** Platform-specific implementations for iOS.
+- **expect/actual:** Platform abstractions that enable shared code to access native functionality.
+
+## Getting Started
+
+The project requires Android Studio with Kotlin Multiplatform support, the appropriate platform SDKs, and backend service configuration.
+
+Xcode is required for iOS development.
+
+## Project Status
+
+This project is a proof of concept exploring the migration from native Android development to Kotlin Multiplatform. Some iOS-specific implementations remain incomplete.
+
+## Project Background
+
+Developed collaboratively to explore multiplatform application architecture, shared business logic, and cross-platform development.
+
+This fork preserves the original commit history and contributor attribution.
